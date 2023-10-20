@@ -11,6 +11,9 @@ const CACHE_KEY = "REACT_QUERY_CACHE";
 const queryClient = new QueryClient();
 
 const Navigation = () => {
+  // react query shows stale data at first then fetches new data in the backgroiund
+  // which results showing instant data, also it provides automatic refetching on failure
+
   const { data, error, isLoading } = useQuery("restaurants", fetchRestaurants);
   const [restaurants, setRestaurants] = useState([]);
 
@@ -114,23 +117,6 @@ export const loadQueryCache = async () => {
   return JSON.parse(cache);
 };
 export default function App() {
-  const [resturants, setRestaurants] = useState([]);
-  // react query shows stale data at first then fetches new data in the backgroiund
-  // which results showing instant data, also it provides automatic refetching on failure
-
-  // check if there is resturants stores
-  // loadQueryCache()
-  //  if (cachedData) {
-  //   queryClient.setQueryData(cachedData);
-  // }
-  // console.log(data);
-  useEffect(() => {
-    // return () => {
-    //   const currentCache = queryClient.getQueryCache();
-    //   saveQueryCache(currentCache);
-    // };
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <Navigation />
